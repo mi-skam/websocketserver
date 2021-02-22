@@ -1,16 +1,25 @@
 <html>
-  <head>
-          <meta charset="UTF-8">
-          <script src="/socket.io/socket.io.js"></script>
-          <script>
-                  const socket = io.connect('http://localhost:3000');
+<head>
+    <meta charset="UTF-8">
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io.connect('http://localhost:3000');
 
-                  setInterval(() => {
-                          socket.emit('control', 'tick')
-                  }, 3000);
-          </script>
-  </head>
-  <body></body>
+        function uuidv4() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+                let random = Math.random() * 16 | 0, v = c === 'x' ? random : (random & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        let uuid = uuidv4();
+
+        setInterval(() => {
+            socket.emit('control', {id: uuid});
+        }, 3000);
+    </script>
+</head>
+<body></body>
 
 </html>
 
